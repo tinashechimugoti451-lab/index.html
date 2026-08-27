@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATELIER Olfact | Luxury Fragrances & Bodycare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-crimson: #a80f2d;
+            --ribbon-red: #d61c38;
+            --accent-gold: #d4af37;
+            --dark-bg: #111111;
+            --card-bg: #1c1c1c;
+            --text-light: #f5f5f5;
+            --text-muted: #cccccc;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-light);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Top Header & Search Navigation Bar */
+        .top-navbar {
+            background-color: #080808;
+            border-bottom: 1px solid #222;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            background-color: #222;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 10px 40px 10px 15px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            width: 250px;
+            transition: width 0.3s ease, border-color 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--ribbon-red);
+            width: 300px;
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 12px;
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        /* Category Navigation Bar */
+        .category-nav {
+            background-color: #141414;
+            border-bottom: 3px solid var(--ribbon-red);
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            padding: 12px 20px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            padding: 5px 10px;
+            transition: color 0.3s ease, border-bottom 0.3s ease;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--ribbon-red);
+        }
+
+        /* Banner Header */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.75)), 
+                        url('https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1200&q=80') center/cover;
+            padding: 50px 20px 30px;
+            text-align: center;
+            border-bottom: 1px solid #222;
+        }
+
+        .brand-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.8rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .brand-header span.script-sub {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 2.3rem;
+            color: #ffffff;
+            display: block;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+
+        .contact-pill-bar {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 15px;
+            font-size: 0.8rem;
+        }
+
+        .contact-pill {
+            background: rgba(168, 15, 45, 0.85);
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        /* View Sections */
+        .view-section {
+            display: none;
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        .view-section.active {
+            display: block;
+        }
+
+        /* Welcome Screen Styling */
+        .welcome-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 40px 20px;
+            background: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .welcome-title {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--accent-gold);
+            margin-bottom: 20px;
+        }
+
+        .welcome-quote {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.25rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 25px;
+        }
+
+        .welcome-text {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        /* Exact 4-Column Layout across 5 Rows (20 Items Total per Category) */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 1100px) {
+            .product-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @media (max-width: 800px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 500px) {
+            .product-grid { grid-template-columns: 1fr; }
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(214, 28, 56, 0.25);
+            border-color: var(--ribbon-red);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            background-color: #252525;
+        }
+
+        .product-details {
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            margin-bottom: 6px;
+            color: var(--text-light);
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            margin-bottom: 12px;
+        }
+
+        .order-btn {
+            background-color: var(--ribbon-red);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s ease;
+            width: 100%;
+            font-size: 0.8rem;
+        }
+
+        .order-btn:hover {
+            background-color: var(--primary-crimson);
+        }
+
+        /* Sliding Order Panel */
+        .slide-panel-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
+            justify-content: flex-end;
+            z-index: 1000;
+        }
+
+        .slide-panel {
+            width: 100%;
+            max-width: 420px;
+            background-color: #181818;
+            height: 100%;
+            padding: 30px;
+            box-shadow: -5px 0 25px rgba(0,0,0,0.8);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .panel-header {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--ribbon-red);
+            padding-bottom: 10px;
+        }
+
+        .selected-item-preview {
+            background: #222;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid var(--ribbon-red);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background-color: #222;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+
+        .whatsapp-submit-btn {
+            background-color: #25D366;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+        }
+
+        /* Footer & About Us Section */
+        footer {
+            background-color: #0a0a0a;
+            border-top: 1px solid #222;
+            margin-top: auto;
+            padding: 40px 20px 20px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid #222;
+        }
+
+        @media (max-width: 768px) {
+            .footer-content { grid-template-columns: 1fr; }
+        }
+
+        .about-us-box h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-gold);
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+        }
+
+        .about-us-box p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .copyright-bar {
+            text-align: center;
+            padding-top: 20px;
+            color: #666;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-navbar">
+        <div style="font-family: 'Cinzel', serif; color: var(--accent-gold); font-weight: bold;">
+            ATELIER OLFACT
+        </div>
+        <div class="search-wrapper">
+            <input type="text" id="searchInput" class="search-input" placeholder="Search perfumes, deodorants..." onkeyup="filterProducts()">
+            <span class="search-icon">🔍</span>
+        </div>
+    </div>
+
+    <nav class="category-nav">
+        <button class="nav-btn active" onclick="switchTab('homeTab', this)">Home</button>
+        <button class="nav-btn" onclick="switchTab('womenTab', this)">Women</button>
+        <button class="nav-btn" onclick="switchTab('menTab', this)">Men</button>
+        <button class="nav-btn" onclick="switchTab('bodycareTab', this)">Bodycare</button>
+    </nav>
+
+    <header>
+        <div class="brand-header">
+            <h1>ATELIER</h1>
+            <span class="script-sub">Olfact</span>
+        </div>
+        <div class="contact-pill-bar">
+            <div class="contact-pill">📍 RUSAPE</div>
+            <div class="contact-pill">✉️ TINASHECHIMUGOTI451@GMAIL.COM</div>
+            <div class="contact-pill">📞 +263-787-057-086</div>
+            <div class="contact-pill">📞 +263-778-492-522</div>
+        </div>
+    </header>
+
+    <section id="homeTab" class="view-section active">
+        <div class="welcome-container">
+            <h2 class="welcome-title">Welcome to ATELIER Olfact</h2>
+            <p class="welcome-quote">
+                "Perfume is the indispensable complement to the personality of women and men, the finishing touch on a dress, the invisible aura of presence."
+            </p>
+            <p class="welcome-text">
+                Indulge in timeless elegance. Our luxury perfume collection defines sophistication, confidence, and unforgettable allure every day. Explore our signature fragrances, roll-ons, and premium bodycare products crafted for distinction.
+            </p>
+            <button class="order-btn" style="max-width: 250px; margin: 0 auto;" onclick="switchTab('womenTab', document.querySelectorAll('.nav-btn')[1])">Explore Collections</button>
+        </div>
+    </section>
+
+    <section id="womenTab" class="view-section">
+        <h3 class="section-title" style="font-family: 'Cinzel'; text-align: center; margin-bottom: 25px; color: var(--accent-gold);">Women's Fragrances (4x5 Collection)</h3>
+        <div class="product-grid">
+            <div class="product-card" data-name="Tom Ford Lost Cherry"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Tom Ford Lost Cherry</h4><div class="product-price">$80.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Lost Cherry', '$80.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Tom Ford Soleil Blanc"><img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Tom Ford Soleil Blanc</h4><div class="product-price">$72.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Soleil Blanc', '$72.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="TF Black Orchid Roll-On"><img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">TF Black Orchid Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Black Orchid Roll-On', '$15.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="TF Velvet Orchid Roll-On"><img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">TF Velvet Orchid Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Velvet Orchid Roll-On', '$15.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Rose Olfact Elixir"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Rose Olfact Elixir</h4><div class="product-price">$65.00</div></div><button class="order-btn" onclick="openOrderPanel('Rose Olfact Elixir', '$65.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Jasmine Elegance EDP"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Jasmine Elegance EDP</h4><div class="product-price">$58.00</div></div><button class="order-btn" onclick="openOrderPanel('Jasmine Elegance EDP', '$58.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Velvet Petals Roll-On"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Velvet Petals Roll-On</h4><div class="product-price">$14.00</div></div><button class="order-btn" onclick="openOrderPanel('Velvet Petals Roll-On', '$14.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Midnight Bloom Women"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Midnight Bloom EDP</h4><div class="product-price">$62.00</div></div><button class="order-btn" onclick="openOrderPanel('Midnight Bloom EDP', '$62.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Vanilla Seduction EDP"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Vanilla Seduction EDP</h4><div class="product-price">$50.00</div></div><button class="order-btn" onclick="openOrderPanel('Vanilla Seduction EDP', '$50.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="TF Rose Prick Roll-On"><img src="https://images.unsplash.com/photo-1582211594533-268f4f1edcb9?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">TF Rose Prick Roll-On</h4><div class="product-price">$18.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Rose Prick Roll-On', '$18.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Golden Goddess Perfume"><img src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Golden Goddess EDP</h4><div class="product-price">$70.00</div></div><button class="order-btn" onclick="openOrderPanel('Golden Goddess EDP', '$70.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Amber Glow Pocket Spray"><img src="https://images.unsplash.com/photo-1512777576244-b846ac3d816f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Amber Glow Spray</h4><div class="product-price">$22.00</div></div><button class="order-btn" onclick="openOrderPanel('Amber Glow Spray', '$22.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Sweet Opulence Women"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Sweet Opulence</h4><div class="product-price">$55.00</div></div><button class="order-btn" onclick="openOrderPanel('Sweet Opulence', '$55.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Crimson Charm Roll-On"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Crimson Charm Roll-On</h4><div class="product-price">$16.00</div></div><button class="order-btn" onclick="openOrderPanel('Crimson Charm Roll-On', '$16.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Floral Whisper EDP"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Floral Whisper EDP</h4><div class="product-price">$48.00</div></div><button class="order-btn" onclick="openOrderPanel('Floral Whisper EDP', '$48.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="White Lace Perfume"><img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">White Lace Perfume</h4><div class="product-price">$52.00</div></div><button class="order-btn" onclick="openOrderPanel('White Lace Perfume', '$52.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Orchid Mystique Roll-On"><img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Orchid Mystique Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('Orchid Mystique Roll-On', '$15.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Saffron Silk EDP"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Saffron Silk EDP</h4><div class="product-price">$78.00</div></div><button class="order-btn" onclick="openOrderPanel('Saffron Silk EDP', '$78.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Peony Nectar Perfume"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Peony Nectar Perfume</h4><div class="product-price">$45.00</div></div><button class="order-btn" onclick="openOrderPanel('Peony Nectar Perfume', '$45.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Royal Essence Women Pack"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Royal Essence Pack</h4><div class="product-price">$90.00</div></div><button class="order-btn" onclick="openOrderPanel('Royal Essence Pack', '$90.00')">Order Now</button></div></div>
+        </div>
+    </section>
+
+    <section id="menTab" class="view-section">
+        <h3 class="section-title" style="font-family: 'Cinzel'; text-align: center; margin-bottom: 25px; color: var(--accent-gold);">Men's Fragrances (4x5 Collection)</h3>
+        <div class="product-grid">
+            <div class="product-card" data-name="Tom Ford Oud Wood"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Tom Ford Oud Wood</h4><div class="product-price">$75.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Oud Wood', '$75.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Tom Ford Ombre Leather"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Tom Ford Ombré Leather</h4><div class="product-price">$68.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Ombré Leather', '$68.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Tom Ford Tobacco Vanille"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Tom Ford Tobacco Vanille</h4><div class="product-price">$70.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Tobacco Vanille', '$70.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="TF Oud Wood Roll-On"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">TF Oud Wood Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Oud Wood Roll-On', '$15.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Black Amber Men EDP"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Black Amber EDP</h4><div class="product-price">$60.00</div></div><button class="order-btn" onclick="openOrderPanel('Black Amber EDP', '$60.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Cedarwood Royale Perfume"><img src="https://images.unsplash.com/photo-1512777576244-b846ac3d816f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Cedarwood Royale</h4><div class="product-price">$64.00</div></div><button class="order-btn" onclick="openOrderPanel('Cedarwood Royale', '$64.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="TF Tobacco Vanille Roll-On"><img src="https://images.unsplash.com/photo-1582211594533-268f4f1edcb9?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">TF Tobacco Vanille Roll-On</h4><div class="product-price">$18.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Tobacco Vanille Roll-On', '$18.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Leather & Spice Roll-On"><img src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Leather & Spice Roll-On</h4><div class="product-price">$14.00</div></div><button class="order-btn" onclick="openOrderPanel('Leather & Spice Roll-On', '$14.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Imperial Oud Intense"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Imperial Oud Intense</h4><div class="product-price">$85.00</div></div><button class="order-btn" onclick="openOrderPanel('Imperial Oud Intense', '$85.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Oceanic Breeze Men"><img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Oceanic Breeze Men</h4><div class="product-price">$45.00</div></div><button class="order-btn" onclick="openOrderPanel('Oceanic Breeze Men', '$45.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Silver Musk Roll-On"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Silver Musk Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('Silver Musk Roll-On', '$15.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Smoky Vetiver Men"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Smoky Vetiver Men</h4><div class="product-price">$55.00</div></div><button class="order-btn" onclick="openOrderPanel('Smoky Vetiver Men', '$55.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Sandalwood Heritage"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Sandalwood Heritage</h4><div class="product-price">$65.00</div></div><button class="order-btn" onclick="openOrderPanel('Sandalwood Heritage', '$65.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="TF Grey Vetiver Roll-On"><img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">TF Grey Vetiver Roll-On</h4><div class="product-price">$16.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Grey Vetiver Roll-On', '$16.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Dark Knight Perfume"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Dark Knight Perfume</h4><div class="product-price">$72.00</div></div><button class="order-btn" onclick="openOrderPanel('Dark Knight Perfume', '$72.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Citrus Sport Cologne"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Citrus Sport Cologne</h4><div class="product-price">$40.00</div></div><button class="order-btn" onclick="openOrderPanel('Citrus Sport Cologne', '$40.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Noble Oak EDP"><img src="https://images.unsplash.com/photo-1512777576244-b846ac3d816f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Noble Oak EDP</h4><div class="product-price">$58.00</div></div><button class="order-btn" onclick="openOrderPanel('Noble Oak EDP', '$58.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Midnight Oud Roll-On"><img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Midnight Oud Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('Midnight Oud Roll-On', '$15.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Royal Crown Men"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Royal Crown Men</h4><div class="product-price">$80.00</div></div><button class="order-btn" onclick="openOrderPanel('Royal Crown Men', '$80.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Olfact Executive Set"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Olfact Executive Set</h4><div class="product-price">$95.00</div></div><button class="order-btn" onclick="openOrderPanel('Olfact Executive Set', '$95.00')">Order Now</button></div></div>
+        </div>
+    </section>
+
+    <section id="bodycareTab" class="view-section">
+        <h3 class="section-title" style="font-family: 'Cinzel'; text-align: center; margin-bottom: 25px; color: var(--accent-gold);">Bodycare & Deodorants (4x5 Collection)</h3>
+        <div class="product-grid">
+            <div class="product-card" data-name="Luxury Olfact Deodorant"><img src="https://images.unsplash.com/photo-1582211594533-268f4f1edcb9?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Olfact Deodorant Spray</h4><div class="product-price">$12.00</div></div><button class="order-btn" onclick="openOrderPanel('Olfact Deodorant Spray', '$12.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="TF Costa Azzurra Roll-On Deodorant"><img src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">TF Costa Azzurra Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Costa Azzurra Roll-On', '$15.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Olfact Scented Body Lotion"><img src="https://images.unsplash.com/photo-1512777576244-b846ac3d816f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Scented Body Lotion</h4><div class="product-price">$20.00</div></div><button class="order-btn" onclick="openOrderPanel('Scented Body Lotion', '$20.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Atelier Roll-On Trio Pack"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Roll-On Trio Pack</h4><div class="product-price">$35.00</div></div><button class="order-btn" onclick="openOrderPanel('Roll-On Trio Pack', '$35.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Oud Nourishing Body Butter"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Oud Body Butter</h4><div class="product-price">$24.00</div></div><button class="order-btn" onclick="openOrderPanel('Oud Body Butter', '$24.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Fresh Antiperspirant Roll-On"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Fresh Antiperspirant</h4><div class="product-price">$10.00</div></div><button class="order-btn" onclick="openOrderPanel('Fresh Antiperspirant', '$10.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Vanilla Cream Body Lotion"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Vanilla Cream Lotion</h4><div class="product-price">$18.00</div></div><button class="order-btn" onclick="openOrderPanel('Vanilla Cream Lotion', '$18.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Gold Shimmer Body Oil"><img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Gold Shimmer Body Oil</h4><div class="product-price">$28.00</div></div><button class="order-btn" onclick="openOrderPanel('Gold Shimmer Body Oil', '$28.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Velvet Body Wash Gel"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Velvet Body Wash Gel</h4><div class="product-price">$16.00</div></div><button class="order-btn" onclick="openOrderPanel('Velvet Body Wash Gel', '$16.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Sport Dry Deodorant Spray"><img src="https://images.unsplash.com/photo-1582211594533-268f4f1edcb9?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Sport Dry Spray</h4><div class="product-price">$11.00</div></div><button class="order-btn" onclick="openOrderPanel('Sport Dry Spray', '$11.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Rose Hydrating Mist"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Rose Hydrating Mist</h4><div class="product-price">$22.00</div></div><button class="order-btn" onclick="openOrderPanel('Rose Hydrating Mist', '$22.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Amber Deodorant Stick"><img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Amber Deodorant Stick</h4><div class="product-price">$13.00</div></div><button class="order-btn" onclick="openOrderPanel('Amber Deodorant Stick', '$13.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Exfoliating Body Scrub"><img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Exfoliating Scrub</h4><div class="product-price">$25.00</div></div><button class="order-btn" onclick="openOrderPanel('Exfoliating Scrub', '$25.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Citrus Refresh Deodorant"><img src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Citrus Refresh Spray</h4><div class="product-price">$12.00</div></div><button class="order-btn" onclick="openOrderPanel('Citrus Refresh Spray', '$12.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Luxury Hand & Body Balm"><img src="https://images.unsplash.com/photo-1512777576244-b846ac3d816f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Hand & Body Balm</h4><div class="product-price">$17.00</div></div><button class="order-btn" onclick="openOrderPanel('Hand & Body Balm', '$17.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Lavender Sleep Mist"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Lavender Sleep Mist</h4><div class="product-price">$19.00</div></div><button class="order-btn" onclick="openOrderPanel('Lavender Sleep Mist', '$19.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Almond Oil Body Wash"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Almond Oil Wash</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('Almond Oil Wash', '$15.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Silk Touch Body Lotion"><img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Silk Touch Lotion</h4><div class="product-price">$21.00</div></div><button class="order-btn" onclick="openOrderPanel('Silk Touch Lotion', '$21.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Charcoal Detox Body Soap"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Charcoal Soap Bar</h4><div class="product-price">$8.00</div></div><button class="order-btn" onclick="openOrderPanel('Charcoal Soap Bar', '$8.00')">Order Now</button></div></div>
+            <div class="product-card" data-name="Olfact Deluxe Spa Kit"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"><div class="product-details"><div><h4 class="product-title">Deluxe Spa Kit</h4><div class="product-price">$65.00</div></div><button class="order-btn" onclick="openOrderPanel('Deluxe Spa Kit', '$65.00')">Order Now</button></div></div>
+        </div>
+    </section>
+
+    <div class="slide-panel-overlay" id="orderOverlay">
+        <div class="slide-panel">
+            <button class="close-btn" onclick="closeOrderPanel()">&times;</button>
+            <h3 class="panel-header">Complete Order</h3>
+
+            <div class="selected-item-preview">
+                <strong>Selected Item:</strong>
+                <div id="panelItemName" style="color: var(--accent-gold); font-weight: bold; margin-top: 4px;">-</div>
+                <div id="panelItemPrice" style="font-size: 0.9rem; color: var(--text-muted);">-</div>
+            </div>
+
+            <form id="checkoutForm" onsubmit="sendWhatsAppOrder(event)">
+                <div class="form-group">
+                    <label for="custNumber">Customer Phone Number</label>
+                    <input type="tel" id="custNumber" placeholder="e.g. +263 700 000 000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="custLocation">Location / City</label>
+                    <input type="text" id="custLocation" value="Rusape" placeholder="e.g. Rusape Central" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="specificPlace">Specific Delivery / Pickup Place</label>
+                    <input type="text" id="specificPlace" placeholder="e.g. Main Bus Terminus / Shop #4" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="collectTime">Preferred Time to Collect</label>
+                    <input type="time" id="collectTime" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="targetWhatsApp">Direct Order To WhatsApp Number</label>
+                    <select id="targetWhatsApp" required>
+                        <option value="263787057086">+263 787 057 086</option>
+                        <option value="263778492522">+263 778 492 522</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="whatsapp-submit-btn">Send Order via WhatsApp</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="about-us-box">
+                <h4>About ATELIER Olfact</h4>
+                <p>
+                    Based in Rusape, ATELIER Olfact is a premier fragrance boutique committed to bringing you high-grade luxury perfumes, roll-ons, and personal bodycare essentials. We focus on long-lasting, sophisticated scent profiles designed to leave a memorable mark.
+                </p>
+            </div>
+            <div>
+                <h4 style="font-family: 'Cinzel'; color: var(--accent-gold); margin-bottom: 12px; font-size: 1.1rem;">Quick Contacts</h4>
+                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.8;">
+                    Email: tinashechimugoti451@gmail.com<br>
+                    Phone 1: +263 787 057 086<br>
+                    Phone 2: +263 778 492 522
+                </p>
+            </div>
+        </div>
+        <div class="copyright-bar">
+            &copy; 2026 ATELIER Olfact. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script>
+        function switchTab(tabId, btnElement) {
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabId).classList.add('active');
+            if(btnElement) btnElement.classList.add('active');
+
+            document.getElementById('searchInput').value = '';
+            filterProducts();
+        }
+
+        function filterProducts() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            const activeTab = document.querySelector('.view-section.active');
+
+            if (query !== '') {
+                if (activeTab.id === 'homeTab') {
+                    switchTab('womenTab', document.querySelectorAll('.nav-btn')[1]);
+                }
+            }
+
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach(card => {
+                const title = card.getAttribute('data-name').toLowerCase();
+                if (title.includes(query)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        let selectedProduct = { name: '', price: '' };
+
+        function openOrderPanel(itemName, itemPrice) {
+            selectedProduct.name = itemName;
+            selectedProduct.price = itemPrice;
+
+            document.getElementById('panelItemName').innerText = itemName;
+            document.getElementById('panelItemPrice').innerText = itemPrice;
+            document.getElementById('orderOverlay').style.display = 'flex';
+        }
+
+        function closeOrderPanel() {
+            document.getElementById('orderOverlay').style.display = 'none';
+        }
+
+        function sendWhatsAppOrder(event) {
+            event.preventDefault();
+
+            const customerPhone = document.getElementById('custNumber').value;
+            const location = document.getElementById('custLocation').value;
+            const specificPlace = document.getElementById('specificPlace').value;
+            const collectTime = document.getElementById('collectTime').value;
+            const targetPhone = document.getElementById('targetWhatsApp').value;
+
+            const message = `*NEW ORDER - ATELIER OLFACT*\n\n` +
+                `*Item Requested:* ${selectedProduct.name}\n` +
+                `*Price:* ${selectedProduct.price}\n` +
+                `------------------------------\n` +
+                `*Customer Phone:* ${customerPhone}\n` +
+                `*Location:* ${location}\n` +
+                `*Specific Place:* ${specificPlace}\n` +
+                `*Time to Collect:* ${collectTime}\n\n` +
+                `Please confirm my order.`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/${targetPhone}?text=${encodedMessage}`, '_blank');
+        }
+
+        window.onclick = function(event) {
+            const overlay = document.getElementById('orderOverlay');
+            if (event.target === overlay) {
+                closeOrderPanel();
+            }
+        }
+    </script>
+</body>
+</html>
