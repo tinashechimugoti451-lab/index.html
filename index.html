@@ -1,771 +1,715 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATELIER Olfact | Luxury Fragrances</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400;1,600&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --primary-crimson: #a80f2d;
-            --ribbon-red: #d61c38;
-            --accent-gold: #e6c666;
-            --gold-glow: #d4af37;
-            --dark-bg: #0b0b0d;
-            --card-bg: rgba(26, 26, 30, 0.75);
-            --text-light: #f8f9fa;
-            --text-muted: #b0b3b8;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Anniversary My Love ❤️</title>
+  
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Montserrat', sans-serif;
-        }
+  <style>
+    :root {
+      --bg-dark: #070308;
+      --card-bg: rgba(22, 10, 24, 0.75);
+      --card-border: rgba(255, 60, 110, 0.25);
+      --accent-pink: #ff2a6d;
+      --accent-gold: #ffb703;
+      --glow-pink: rgba(255, 42, 109, 0.45);
+      --glow-gold: rgba(255, 183, 3, 0.35);
+      --text-main: #f8fafc;
+      --text-sub: #cbd5e1;
+    }
 
-        body {
-            background-color: var(--dark-bg);
-            background-image: 
-                radial-gradient(circle at 50% 0%, rgba(168, 15, 45, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 85% 60%, rgba(212, 175, 55, 0.08) 0%, transparent 40%);
-            background-attachment: fixed;
-            color: var(--text-light);
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-        /* Keyframe Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      overflow: hidden;
+      position: relative;
+      user-select: none;
+    }
 
-        /* Top Header Navigation Bar */
-        .top-navbar {
-            background: rgba(10, 10, 12, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
+    /* Ambient Pulsing Background Glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: -20%;
+      width: 140vw;
+      height: 140vh;
+      background: radial-gradient(circle at 50% 50%, rgba(255, 42, 109, 0.15), rgba(120, 0, 40, 0.08) 40%, transparent 70%);
+      z-index: 0;
+      pointer-events: none;
+      animation: ambientPulse 10s infinite alternate ease-in-out;
+    }
 
-        .brand-logo-text {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-gold);
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(230, 198, 102, 0.3);
-        }
+    @keyframes ambientPulse {
+      0% { transform: scale(1) translate(0, 0); opacity: 0.8; }
+      100% { transform: scale(1.1) translate(-2%, 2%); opacity: 1; }
+    }
 
-        .search-wrapper {
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
+    /* Floating Particles Canvas Overlay */
+    #particle-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+    }
 
-        .search-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: #fff;
-            padding: 10px 40px 10px 15px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            width: 230px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
+    /* Horizontal Full-Screen Slide Deck Container */
+    .deck-container {
+      display: flex;
+      width: 100vw;
+      height: 100vh;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      position: relative;
+      z-index: 2;
+    }
 
-        .search-input:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-            width: 280px;
-            background: rgba(0, 0, 0, 0.6);
-            box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
-        }
+    .deck-container::-webkit-scrollbar {
+      display: none;
+    }
 
-        .search-icon {
-            position: absolute;
-            right: 14px;
-            color: var(--text-muted);
-            pointer-events: none;
-        }
+    /* Individual Full-Screen Slide */
+    .slide {
+      flex: 0 0 100vw;
+      width: 100vw;
+      height: 100vh;
+      scroll-snap-align: start;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.5rem 6.5rem 1.5rem;
+    }
 
-        /* Category Navigation Bar */
-        .category-nav {
-            background: rgba(18, 18, 22, 0.9);
-            border-bottom: 2px solid var(--primary-crimson);
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            padding: 14px 10px;
-            flex-wrap: wrap;
-        }
+    /* Glassmorphism Card Container */
+    .slide-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px var(--glow-pink);
+      border-radius: 28px;
+      padding: 2.5rem;
+      max-width: 900px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-pink) transparent;
+    }
 
-        .nav-btn {
-            background: none;
-            border: none;
-            color: var(--text-light);
-            font-family: 'Cinzel', serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            cursor: pointer;
-            padding: 6px 14px;
-            position: relative;
-            transition: color 0.3s ease;
-        }
+    .slide-card::-webkit-scrollbar {
+      width: 6px;
+    }
+    .slide-card::-webkit-scrollbar-thumb {
+      background: var(--accent-pink);
+      border-radius: 10px;
+    }
 
-        .nav-btn::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            width: 0%;
-            height: 2px;
-            background: var(--accent-gold);
-            transition: all 0.3s ease;
-            transform: translateX(-50%);
-        }
+    /* Typography */
+    .font-cinzel {
+      font-family: 'Cinzel', serif;
+    }
+    .font-script {
+      font-family: 'Sacramento', cursive;
+    }
 
-        .nav-btn:hover, .nav-btn.active {
-            color: var(--accent-gold);
-        }
+    .slide-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent-pink);
+      text-shadow: 0 0 15px var(--glow-pink);
+      margin-bottom: 0.75rem;
+      text-align: center;
+    }
 
-        .nav-btn:hover::after, .nav-btn.active::after {
-            width: 80%;
-        }
+    .slide-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-sub);
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
 
-        /* Banner Header */
-        header {
-            background: linear-gradient(180deg, rgba(11, 11, 13, 0.4) 0%, rgba(11, 11, 13, 0.85) 100%), 
-                        url('https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-            padding: 60px 15px 45px;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            position: relative;
-        }
+    /* Timer Styles */
+    .timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin: 2rem 0;
+    }
 
-        .brand-header h1 {
-            font-family: 'Cinzel', serif;
-            font-size: 3rem;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            background: linear-gradient(180deg, #ffffff 0%, #d4af37 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-            animation: fadeIn 1s ease-out;
-        }
+    .time-box {
+      background: rgba(0, 0, 0, 0.55);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 18px;
+      padding: 1.2rem 0.5rem;
+      text-align: center;
+      box-shadow: inset 0 0 20px rgba(255, 42, 109, 0.15);
+    }
 
-        .brand-header span.script-sub {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 2.2rem;
-            color: var(--text-light);
-            display: block;
-            margin-top: -8px;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
-            animation: fadeIn 1.2s ease-out;
-        }
+    .time-num {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      text-shadow: 0 0 12px var(--glow-gold);
+      display: block;
+    }
 
-        /* View Sections */
-        .view-section {
-            display: none;
-            max-width: 1400px;
-            margin: 30px auto;
-            padding: 0 10px;
-            width: 100%;
-        }
+    .time-unit {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--text-sub);
+      margin-top: 0.4rem;
+      display: block;
+      font-weight: 600;
+    }
 
-        .view-section.active {
-            display: block;
-            animation: fadeIn 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
+    /* Media Grid Cards (Google Drive Photos & Videos) */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
 
-        /* Welcome Screen Styling (Home Tab) */
-        .welcome-hero-card {
-            background: linear-gradient(135deg, rgba(28, 28, 35, 0.85), rgba(15, 15, 18, 0.95)),
-                        url('https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=1200&q=80') center/cover;
-            background-blend-mode: overlay;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-radius: 16px;
-            padding: 60px 30px;
-            text-align: center;
-            max-width: 900px;
-            margin: 20px auto;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
-            animation: fadeIn 0.8s ease-out;
-        }
+    .media-card {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
 
-        .welcome-title {
-            font-family: 'Cinzel', serif;
-            font-size: 2.3rem;
-            color: var(--accent-gold);
-            margin-bottom: 20px;
-            letter-spacing: 1.5px;
-        }
+    .media-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent-pink);
+      box-shadow: 0 10px 25px var(--glow-pink);
+    }
 
-        .welcome-quote {
-            font-family: 'Playfair Display', serif;
-            font-style: italic;
-            font-size: 1.25rem;
-            line-height: 1.8;
-            color: #ffffff;
-            margin-bottom: 25px;
-            max-width: 750px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .media-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
 
-        .welcome-text {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 35px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
+    .media-card iframe {
+      width: 100%;
+      height: 220px;
+      border: none;
+      display: block;
+    }
 
-        .explore-btn {
-            background: linear-gradient(135deg, var(--ribbon-red), var(--primary-crimson));
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 14px 35px;
-            font-size: 0.85rem;
-            font-family: 'Cinzel', serif;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            box-shadow: 0 4px 15px rgba(214, 28, 56, 0.4);
-        }
+    .media-caption {
+      padding: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      text-align: center;
+      font-weight: 500;
+    }
 
-        .explore-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(214, 28, 56, 0.7);
-            background: linear-gradient(135deg, #e62342, var(--primary-crimson));
-        }
+    /* 3D Flip Love Note Cards */
+    .flip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
 
-        /* Strict 4-Column Grid for ALL Devices */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
+    .flip-card {
+      background-color: transparent;
+      height: 190px;
+      perspective: 1000px;
+      cursor: pointer;
+    }
 
-        .product-card {
-            background: var(--card-bg);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            backdrop-filter: blur(5px);
-        }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transform-style: preserve-3d;
+    }
 
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.25);
-            border-color: rgba(212, 175, 55, 0.5);
-        }
+    .flip-card.flipped .flip-card-inner {
+      transform: rotateY(180deg);
+    }
 
-        .img-container {
-            overflow: hidden;
-            position: relative;
-            width: 100%;
-            height: 160px;
-        }
+    .flip-front, .flip-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
 
-        .product-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            background-color: #1a1a1a;
-            transition: transform 0.6s ease;
-        }
+    .flip-front {
+      background: linear-gradient(135deg, rgba(255, 42, 109, 0.22), rgba(20, 10, 30, 0.85));
+      border: 1px solid var(--accent-pink);
+      color: var(--text-main);
+      font-weight: 600;
+      font-size: 1.05rem;
+      box-shadow: inset 0 0 15px rgba(255, 42, 109, 0.15);
+    }
 
-        .product-card:hover .product-img {
-            transform: scale(1.08);
-        }
+    .flip-back {
+      background: linear-gradient(135deg, rgba(255, 183, 3, 0.22), rgba(30, 10, 25, 0.92));
+      border: 1px solid var(--accent-gold);
+      color: var(--text-main);
+      transform: rotateY(180deg);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      box-shadow: inset 0 0 15px rgba(255, 183, 3, 0.15);
+    }
 
-        .product-details {
-            padding: 12px 10px;
-            display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            justify-content: space-between;
-        }
+    /* Spotify Player Container */
+    .music-container {
+      margin-top: 1.25rem;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 15px rgba(255, 42, 109, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
 
-        .product-title {
-            font-family: 'Cinzel', serif;
-            font-size: 0.82rem;
-            margin-bottom: 6px;
-            color: var(--text-light);
-            line-height: 1.3;
-            word-break: break-word;
-        }
+    /* Floating Navigation Controls */
+    .nav-panel {
+      position: fixed;
+      bottom: 1.8rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      background: rgba(15, 5, 20, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      padding: 0.8rem 1.8rem;
+      border-radius: 9999px;
+      border: 1px solid var(--card-border);
+      box-shadow: 0 10px 35px rgba(0,0,0,0.85), 0 0 20px var(--glow-pink);
+      z-index: 10;
+    }
 
-        .product-price {
-            font-size: 0.95rem;
-            font-weight: 600;
-            color: var(--accent-gold);
-            margin-bottom: 10px;
-        }
+    .nav-btn {
+      background: linear-gradient(135deg, var(--accent-pink), #b0003a);
+      color: #fff;
+      border: none;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
 
-        .order-btn {
-            background: linear-gradient(135deg, var(--ribbon-red), var(--primary-crimson));
-            color: #fff;
-            border: none;
-            padding: 8px 4px;
-            border-radius: 20px;
-            font-weight: 600;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: all 0.3s ease;
-            width: 100%;
-            font-size: 0.7rem;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
-        }
+    .nav-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px var(--accent-pink);
+    }
 
-        .order-btn:hover {
-            background: linear-gradient(135deg, #f02444, var(--ribbon-red));
-            box-shadow: 0 4px 12px rgba(214, 28, 56, 0.5);
-        }
+    .slide-counter {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      letter-spacing: 1.5px;
+    }
 
-        /* Mobile Adjustments */
-        @media (max-width: 600px) {
-            .product-grid { gap: 6px; }
-            .img-container { height: 100px; }
-            .product-details { padding: 6px 4px; }
-            .product-title { font-size: 0.65rem; }
-            .product-price { font-size: 0.75rem; margin-bottom: 5px; }
-            .order-btn { padding: 6px 2px; font-size: 0.6rem; border-radius: 10px; }
-            .brand-header h1 { font-size: 2rem; letter-spacing: 3px; }
-            .brand-header span.script-sub { font-size: 1.5rem; }
-            .welcome-title { font-size: 1.6rem; }
-            .welcome-quote { font-size: 1rem; }
-        }
-
-        /* Sliding Order Drawer */
-        .slide-panel-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(6px);
-            display: none;
-            justify-content: flex-end;
-            z-index: 1000;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .slide-panel {
-            width: 100%;
-            max-width: 420px;
-            background-color: #141418;
-            height: 100%;
-            padding: 30px;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.9);
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            position: relative;
-            border-left: 1px solid rgba(212, 175, 55, 0.3);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .close-btn:hover { color: var(--accent-gold); }
-
-        .panel-header {
-            font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            color: var(--accent-gold);
-            border-bottom: 2px solid var(--ribbon-red);
-            padding-bottom: 10px;
-        }
-
-        .selected-item-preview {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 14px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--accent-gold);
-        }
-
-        .form-group { margin-bottom: 16px; }
-
-        .form-group label {
-            display: block;
-            font-size: 0.75rem;
-            margin-bottom: 6px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 10px 12px;
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            background-color: #1f1f26;
-            color: #fff;
-            font-size: 0.9rem;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-group input:focus, .form-group select:focus {
-            outline: none;
-            border-color: var(--accent-gold);
-        }
-
-        .whatsapp-submit-btn {
-            background: #25D366;
-            color: #fff;
-            border: none;
-            padding: 14px;
-            border-radius: 25px;
-            font-weight: bold;
-            font-size: 0.95rem;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-submit-btn:hover {
-            background: #20ba5a;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-        }
-
-        /* Footer & Integrated About Us Section */
-        footer {
-            background-color: #070709;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            margin-top: auto;
-            padding: 50px 20px 25px;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1.8fr 1fr;
-            gap: 40px;
-            padding-bottom: 35px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        @media (max-width: 768px) {
-            .footer-content { grid-template-columns: 1fr; }
-        }
-
-        .about-us-box h4 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-gold);
-            font-size: 1.4rem;
-            margin-bottom: 14px;
-            letter-spacing: 1px;
-        }
-
-        .about-us-box p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-
-        .contact-info-box h4 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-gold);
-            margin-bottom: 14px;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-        }
-
-        .contact-list { list-style: none; }
-
-        .contact-list li {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 2;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .copyright-bar {
-            text-align: center;
-            padding-top: 25px;
-            color: #555560;
-            font-size: 0.8rem;
-        }
-    </style>
+    /* Responsive adjustments */
+    @media (max-width: 640px) {
+      .slide-card {
+        padding: 1.5rem;
+      }
+      .slide-title {
+        font-size: 1.75rem;
+      }
+      .timer-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .media-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-    <div class="top-navbar">
-        <div class="brand-logo-text">ATELIER OLFACT</div>
-        <div class="search-wrapper">
-            <input type="text" id="searchInput" class="search-input" placeholder="Search fragrances..." onkeyup="filterProducts()">
-            <span class="search-icon">🔍</span>
-        </div>
-    </div>
+  <!-- Floating Heart Particles Canvas -->
+  <canvas id="particle-canvas"></canvas>
 
-    <nav class="category-nav">
-        <button class="nav-btn active" onclick="switchTab('homeTab', this)">Home</button>
-        <button class="nav-btn" onclick="switchTab('womenTab', this)">Women</button>
-        <button class="nav-btn" onclick="switchTab('menTab', this)">Men</button>
-    </nav>
+  <div class="deck-container" id="deck">
 
-    <header>
-        <div class="brand-header">
-            <h1>ATELIER</h1>
-            <span class="script-sub">Olfact</span>
-        </div>
-    </header>
+    <!-- SLIDE 1: Hero & Time Counter -->
+    <section class="slide" id="slide-1">
+      <div class="slide-card">
+        <span style="display: block; text-align: center; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
+          <i class="fa-solid fa-sparkles"></i> Happy Anniversary My Love
+        </span>
 
-    <section id="homeTab" class="view-section active">
-        <div class="welcome-hero-card">
-            <h2 class="welcome-title">Welcome to ATELIER Olfact</h2>
-            <p class="welcome-quote">
-                "Perfume is the indispensable complement to the personality of women and men, the finishing touch on a dress, the invisible aura of presence."
-            </p>
-            <p class="welcome-text">
-                Indulge in luxury scent design. Our curated fragrance selections embody timeless sophistication, personal elegance, and unforgettable allure. Explore our signature perfumes and concentrated roll-ons.
-            </p>
-            <button class="explore-btn" onclick="switchTab('womenTab', document.querySelectorAll('.nav-btn')[1])">Explore Collections</button>
+        <h1 class="slide-title">To My Favorite Person ❤️</h1>
+        <p class="slide-subtitle">
+          Every second spent loving you brings us closer. Distance is just a test to see how far love can travel.
+        </p>
+
+        <!-- Dynamic Live Time Counter -->
+        <div class="timer-grid">
+          <div class="time-box">
+            <span class="time-num" id="days">000</span>
+            <span class="time-unit">Days</span>
+          </div>
+          <div class="time-box">
+            <span class="time-num" id="hours">00</span>
+            <span class="time-unit">Hours</span>
+          </div>
+          <div class="time-box">
+            <span class="time-num" id="minutes">00</span>
+            <span class="time-unit">Minutes</span>
+          </div>
+          <div class="time-box">
+            <span class="time-num" id="seconds">00</span>
+            <span class="time-unit">Seconds</span>
+          </div>
         </div>
+
+        <p class="font-script" style="text-align: center; color: var(--accent-gold); font-size: 2rem; margin-top: 1rem;">
+          "Distance Means So Little When Someone Means So Much"
+        </p>
+      </div>
     </section>
 
-    <section id="womenTab" class="view-section">
-        <h3 class="section-title" style="font-family: 'Cinzel'; text-align: center; margin-bottom: 25px; color: var(--accent-gold); letter-spacing: 1px;">Women's Fragrances</h3>
-        <div class="product-grid">
-            <div class="product-card" data-name="Tom Ford Lost Cherry"><div class="img-container"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Tom Ford Lost Cherry</h4><div class="product-price">$80.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Lost Cherry', '$80.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Tom Ford Soleil Blanc"><div class="img-container"><img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Tom Ford Soleil Blanc</h4><div class="product-price">$72.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Soleil Blanc', '$72.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="TF Black Orchid Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">TF Black Orchid Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Black Orchid Roll-On', '$15.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="TF Velvet Orchid Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">TF Velvet Orchid Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Velvet Orchid Roll-On', '$15.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Rose Olfact Elixir"><div class="img-container"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Rose Olfact Elixir</h4><div class="product-price">$65.00</div></div><button class="order-btn" onclick="openOrderPanel('Rose Olfact Elixir', '$65.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Jasmine Elegance EDP"><div class="img-container"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Jasmine Elegance EDP</h4><div class="product-price">$58.00</div></div><button class="order-btn" onclick="openOrderPanel('Jasmine Elegance EDP', '$58.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Velvet Petals Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Velvet Petals Roll-On</h4><div class="product-price">$14.00</div></div><button class="order-btn" onclick="openOrderPanel('Velvet Petals Roll-On', '$14.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Midnight Bloom EDP"><div class="img-container"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Midnight Bloom EDP</h4><div class="product-price">$62.00</div></div><button class="order-btn" onclick="openOrderPanel('Midnight Bloom EDP', '$62.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Vanilla Seduction EDP"><div class="img-container"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Vanilla Seduction EDP</h4><div class="product-price">$50.00</div></div><button class="order-btn" onclick="openOrderPanel('Vanilla Seduction EDP', '$50.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="TF Rose Prick Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1582211594533-268f4f1edcb9?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">TF Rose Prick Roll-On</h4><div class="product-price">$18.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Rose Prick Roll-On', '$18.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Golden Goddess EDP"><div class="img-container"><img src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Golden Goddess EDP</h4><div class="product-price">$70.00</div></div><button class="order-btn" onclick="openOrderPanel('Golden Goddess EDP', '$70.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Amber Glow Spray"><div class="img-container"><img src="https://images.unsplash.com/photo-1512777576244-b846ac3d816f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Amber Glow Spray</h4><div class="product-price">$22.00</div></div><button class="order-btn" onclick="openOrderPanel('Amber Glow Spray', '$22.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Sweet Opulence"><div class="img-container"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Sweet Opulence</h4><div class="product-price">$55.00</div></div><button class="order-btn" onclick="openOrderPanel('Sweet Opulence', '$55.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Crimson Charm Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Crimson Charm Roll-On</h4><div class="product-price">$16.00</div></div><button class="order-btn" onclick="openOrderPanel('Crimson Charm Roll-On', '$16.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Floral Whisper EDP"><div class="img-container"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Floral Whisper EDP</h4><div class="product-price">$48.00</div></div><button class="order-btn" onclick="openOrderPanel('Floral Whisper EDP', '$48.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="White Lace Perfume"><div class="img-container"><img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">White Lace Perfume</h4><div class="product-price">$52.00</div></div><button class="order-btn" onclick="openOrderPanel('White Lace Perfume', '$52.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Orchid Mystique Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Orchid Mystique Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('Orchid Mystique Roll-On', '$15.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Saffron Silk EDP"><div class="img-container"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Saffron Silk EDP</h4><div class="product-price">$78.00</div></div><button class="order-btn" onclick="openOrderPanel('Saffron Silk EDP', '$78.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Peony Nectar Perfume"><div class="img-container"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Peony Nectar Perfume</h4><div class="product-price">$45.00</div></div><button class="order-btn" onclick="openOrderPanel('Peony Nectar Perfume', '$45.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Royal Essence Pack"><div class="img-container"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Royal Essence Pack</h4><div class="product-price">$90.00</div></div><button class="order-btn" onclick="openOrderPanel('Royal Essence Pack', '$90.00')">Order Now</button></div></div>
+    <!-- SLIDE 2: Long Distance Relationship Message -->
+    <section class="slide" id="slide-2">
+      <div class="slide-card">
+        <span style="display: block; text-align: center; color: var(--accent-pink); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
+          Miles Apart, Heart To Heart
+        </span>
+        <h2 class="slide-title">Across Every Mile 🌍</h2>
+        <p class="slide-subtitle">
+          Being miles apart isn't easy, but having you in my life makes every single distance completely worth it.
+        </p>
+        
+        <div style="background: rgba(0,0,0,0.4); padding: 1.8rem; border-radius: 20px; border-left: 4px solid var(--accent-pink); margin-top: 1rem; box-shadow: inset 0 0 15px rgba(255, 42, 109, 0.1);">
+          <p style="font-style: italic; color: var(--text-main); line-height: 1.85; font-size: 1.1rem; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
+            "Our love exists across screens, late-night calls, and waiting for the moment I finally get to hold you. People think distance weakens a bond, but with us, it only proved how unbreakable we are. No matter how many miles separate us right now, my heart belongs to you, and I am counting down until the day distance is finally zero."
+          </p>
         </div>
+
+        <p class="font-script" style="text-align: center; color: var(--accent-pink); font-size: 2.1rem; margin-top: 1.5rem;">
+          "You are worth every single mile."
+        </p>
+      </div>
     </section>
 
-    <section id="menTab" class="view-section">
-        <h3 class="section-title" style="font-family: 'Cinzel'; text-align: center; margin-bottom: 25px; color: var(--accent-gold); letter-spacing: 1px;">Men's Fragrances</h3>
-        <div class="product-grid">
-            <div class="product-card" data-name="Tom Ford Oud Wood"><div class="img-container"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Tom Ford Oud Wood</h4><div class="product-price">$75.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Oud Wood', '$75.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Tom Ford Ombre Leather"><div class="img-container"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Tom Ford Ombré Leather</h4><div class="product-price">$68.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Ombré Leather', '$68.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Tom Ford Tobacco Vanille"><div class="img-container"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Tom Ford Tobacco Vanille</h4><div class="product-price">$70.00</div></div><button class="order-btn" onclick="openOrderPanel('Tom Ford Tobacco Vanille', '$70.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="TF Oud Wood Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">TF Oud Wood Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Oud Wood Roll-On', '$15.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Black Amber EDP"><div class="img-container"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Black Amber EDP</h4><div class="product-price">$60.00</div></div><button class="order-btn" onclick="openOrderPanel('Black Amber EDP', '$60.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Cedarwood Royale"><div class="img-container"><img src="https://images.unsplash.com/photo-1512777576244-b846ac3d816f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Cedarwood Royale</h4><div class="product-price">$64.00</div></div><button class="order-btn" onclick="openOrderPanel('Cedarwood Royale', '$64.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="TF Tobacco Vanille Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1582211594533-268f4f1edcb9?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">TF Tobacco Vanille Roll-On</h4><div class="product-price">$18.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Tobacco Vanille Roll-On', '$18.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Leather & Spice Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1528740561666-dc2479dc08ab?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Leather & Spice Roll-On</h4><div class="product-price">$14.00</div></div><button class="order-btn" onclick="openOrderPanel('Leather & Spice Roll-On', '$14.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Imperial Oud Intense"><div class="img-container"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Imperial Oud Intense</h4><div class="product-price">$85.00</div></div><button class="order-btn" onclick="openOrderPanel('Imperial Oud Intense', '$85.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Oceanic Breeze Men"><div class="img-container"><img src="https://images.unsplash.com/photo-1615397349754-cfa2066a298e?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Oceanic Breeze Men</h4><div class="product-price">$45.00</div></div><button class="order-btn" onclick="openOrderPanel('Oceanic Breeze Men', '$45.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Silver Musk Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Silver Musk Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('Silver Musk Roll-On', '$15.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Smoky Vetiver Men"><div class="img-container"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Smoky Vetiver Men</h4><div class="product-price">$55.00</div></div><button class="order-btn" onclick="openOrderPanel('Smoky Vetiver Men', '$55.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Sandalwood Heritage"><div class="img-container"><img src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Sandalwood Heritage</h4><div class="product-price">$65.00</div></div><button class="order-btn" onclick="openOrderPanel('Sandalwood Heritage', '$65.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="TF Grey Vetiver Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1595425970377-c9703cf48b6d?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">TF Grey Vetiver Roll-On</h4><div class="product-price">$16.00</div></div><button class="order-btn" onclick="openOrderPanel('TF Grey Vetiver Roll-On', '$16.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Dark Knight Perfume"><div class="img-container"><img src="https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Dark Knight Perfume</h4><div class="product-price">$72.00</div></div><button class="order-btn" onclick="openOrderPanel('Dark Knight Perfume', '$72.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Citrus Sport Cologne"><div class="img-container"><img src="https://images.unsplash.com/photo-1592945403244-b3fbafd7f539?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Citrus Sport Cologne</h4><div class="product-price">$40.00</div></div><button class="order-btn" onclick="openOrderPanel('Citrus Sport Cologne', '$40.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Noble Oak EDP"><div class="img-container"><img src="https://images.unsplash.com/photo-1512777576244-b846ac3d816f?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Noble Oak EDP</h4><div class="product-price">$58.00</div></div><button class="order-btn" onclick="openOrderPanel('Noble Oak EDP', '$58.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Midnight Oud Roll-On"><div class="img-container"><img src="https://images.unsplash.com/photo-1563178406-4cdc2923acbc?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Midnight Oud Roll-On</h4><div class="product-price">$15.00</div></div><button class="order-btn" onclick="openOrderPanel('Midnight Oud Roll-On', '$15.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Royal Crown Men"><div class="img-container"><img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Royal Crown Men</h4><div class="product-price">$80.00</div></div><button class="order-btn" onclick="openOrderPanel('Royal Crown Men', '$80.00')">Order Now</button></div></div>
-            <div class="product-card" data-name="Olfact Executive Set"><div class="img-container"><img src="https://images.unsplash.com/photo-1547887537-6158d64c35b3?auto=format&fit=crop&w=600&q=80" class="product-img"></div><div class="product-details"><div><h4 class="product-title">Olfact Executive Set</h4><div class="product-price">$95.00</div></div><button class="order-btn" onclick="openOrderPanel('Olfact Executive Set', '$95.00')">Order Now</button></div></div>
+    <!-- SLIDE 3: Interactive Love Notes (Flip Cards) -->
+    <section class="slide" id="slide-3">
+      <div class="slide-card">
+        <span style="display: block; text-align: center; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
+          Tap To Reveal
+        </span>
+        <h2 class="slide-title">Why Long Distance Showed Me You're The One</h2>
+        <p class="slide-subtitle">Click or tap on any card to unlock a secret note from my heart.</p>
+
+        <div class="flip-grid">
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-front">
+                <i class="fa-solid fa-phone-volume mb-2" style="font-size: 1.5rem; color: var(--accent-pink);"></i>
+                <span>Our Late Night Calls</span>
+              </div>
+              <div class="flip-back">
+                Hearing your voice over the phone at the end of the day instantly calms my mind and brings me peace.
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-front">
+                <i class="fa-solid fa-plane-arrival mb-2" style="font-size: 1.5rem; color: var(--accent-gold);"></i>
+                <span>Counting Down The Days</span>
+              </div>
+              <div class="flip-back">
+                Every single day brings us one step closer to the day I get to see you and hold you close.
+              </div>
+            </div>
+          </div>
+
+          <div class="flip-card" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+              <div class="flip-front">
+                <i class="fa-solid fa-heart-circle-check mb-2" style="font-size: 1.5rem; color: var(--accent-pink);"></i>
+                <span>Unshakable Trust</span>
+              </div>
+              <div class="flip-back">
+                The miles only showed us how deep, genuine, and strong our love really is. I'm yours forever.
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </section>
 
-    <div class="slide-panel-overlay" id="orderOverlay">
-        <div class="slide-panel">
-            <button class="close-btn" onclick="closeOrderPanel()">&times;</button>
-            <h3 class="panel-header">Complete Order</h3>
+    <!-- SLIDE 4: Google Drive Images & Videos Gallery -->
+    <section class="slide" id="slide-4">
+      <div class="slide-card">
+        <span style="display: block; text-align: center; color: var(--accent-pink); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
+          Shared Memories
+        </span>
+        <h2 class="slide-title">Moments & Clips</h2>
+        <p class="slide-subtitle">Photos and video clips loaded directly from Google Drive links.</p>
 
-            <div class="selected-item-preview">
-                <strong>Selected Item:</strong>
-                <div id="panelItemName" style="color: var(--accent-gold); font-weight: bold; margin-top: 4px;">-</div>
-                <div id="panelItemPrice" style="font-size: 0.9rem; color: var(--text-muted);">-</div>
-            </div>
+        <div class="media-grid">
+          
+          <!-- Google Drive Image 1 -->
+          <!-- Replace 1ABC123xyz_EXAMPLE_ID1 with your real Google Drive Photo File ID -->
+          <div class="media-card">
+            <img src="https://lh3.googleusercontent.com/d/1ABC123xyz_EXAMPLE_ID1" alt="Memory Photo 1" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&auto=format&fit=crop'">
+            <div class="media-caption">Unforgettable Times ❤️</div>
+          </div>
 
-            <form id="checkoutForm" onsubmit="sendWhatsAppOrder(event)">
-                <div class="form-group">
-                    <label for="custNumber">Customer Phone Number</label>
-                    <input type="tel" id="custNumber" placeholder="e.g. +263 700 000 000" required>
-                </div>
+          <!-- Google Drive Image 2 -->
+          <!-- Replace 1ABC123xyz_EXAMPLE_ID2 with your real Google Drive Photo File ID -->
+          <div class="media-card">
+            <img src="https://lh3.googleusercontent.com/d/1ABC123xyz_EXAMPLE_ID2" alt="Memory Photo 2" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&auto=format&fit=crop'">
+            <div class="media-caption">Just Us 💕</div>
+          </div>
 
-                <div class="form-group">
-                    <label for="custLocation">Location / City</label>
-                    <input type="text" id="custLocation" value="Rusape" placeholder="e.g. Rusape Central" required>
-                </div>
+          <!-- Google Drive Embedded Video -->
+          <!-- Replace YOUR_VIDEO_FILE_ID with your real Google Drive Video File ID -->
+          <div class="media-card">
+            <iframe src="https://drive.google.com/file/d/YOUR_VIDEO_FILE_ID/preview" allow="autoplay"></iframe>
+            <div class="media-caption">Video Memory 🎥</div>
+          </div>
 
-                <div class="form-group">
-                    <label for="specificPlace">Specific Delivery / Pickup Place</label>
-                    <input type="text" id="specificPlace" placeholder="e.g. Main Bus Terminus / Shop #4" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="collectTime">Preferred Time to Collect</label>
-                    <input type="time" id="collectTime" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="targetWhatsApp">Direct Order To WhatsApp Number</label>
-                    <select id="targetWhatsApp" required>
-                        <option value="263787057086">+263 787 057 086</option>
-                        <option value="263778492522">+263 778 492 522</option>
-                    </select>
-                </div>
-
-                <button type="submit" class="whatsapp-submit-btn">Send Order via WhatsApp</button>
-            </form>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <footer>
-        <div class="footer-content">
-            <div class="about-us-box">
-                <h4>About ATELIER Olfact</h4>
-                <p>
-                    Based in Rusape, ATELIER Olfact is a luxury fragrance boutique committed to offering high-grade perfumes and roll-ons. We provide long-lasting scent profiles crafted to deliver elegance and presence for every occasion.
-                </p>
-            </div>
-            <div class="contact-info-box">
-                <h4>Contact Us</h4>
-                <ul class="contact-list">
-                    <li>📍 <span>Rusape, Zimbabwe</span></li>
-                    <li>✉️ <span>tinashechimugoti451@gmail.com</span></li>
-                    <li>📞 <span>+263 787 057 086</span></li>
-                    <li>📞 <span>+263 778 492 522</span></li>
-                </ul>
-            </div>
+    <!-- SLIDE 5: Afrobeats Spotify Playlist Section -->
+    <section class="slide" id="slide-5">
+      <div class="slide-card">
+        <span style="display: block; text-align: center; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
+          Afro Romantic Vibes
+        </span>
+        <h2 class="slide-title">Our Soundtrack 🎵</h2>
+        <p class="slide-subtitle">Smooth Afrobeats set to make the mood romantic and unforgettable.</p>
+
+        <div class="music-container">
+          <!-- Spotify Embed: Omah Lay - Understand -->
+          <iframe 
+            style="border-radius:12px" 
+            src="https://open.spotify.com/embed/track/23M3L03eE3RkWF39jW5E8d?utm_source=generator&theme=0" 
+            width="100%" 
+            height="152" 
+            frameBorder="0" 
+            allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy">
+          </iframe>
         </div>
-        <div class="copyright-bar">
-            &copy; 2026 ATELIER Olfact. All Rights Reserved.
+
+        <div class="music-container">
+          <!-- Spotify Embed: Rema - Calm Down -->
+          <iframe 
+            style="border-radius:12px" 
+            src="https://open.spotify.com/embed/track/0yL213StFu1v4R312iM3eU?utm_source=generator&theme=0" 
+            width="100%" 
+            height="152" 
+            frameBorder="0" 
+            allowfullscreen="" 
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+            loading="lazy">
+          </iframe>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        function switchTab(tabId, btnElement) {
-            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+  </div>
 
-            document.getElementById(tabId).classList.add('active');
-            if(btnElement) btnElement.classList.add('active');
+  <!-- Floating Navigation Controls -->
+  <div class="nav-panel">
+    <button class="nav-btn" id="prevBtn" title="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+    <span class="slide-counter" id="indicator">1 / 5</span>
+    <button class="nav-btn" id="nextBtn" title="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+  </div>
 
-            document.getElementById('searchInput').value = '';
-            filterProducts();
+  <script>
+    /* =========================================================
+       1. LIVE COUNTER SCRIPT (Customize start date below)
+       ========================================================= */
+    const startDate = new Date(2023, 0, 1, 0, 0, 0); 
+
+    function updateCounter() {
+      const now = new Date();
+      const diffTime = Math.abs(now - startDate);
+
+      const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diffTime / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diffTime / 1000 / 60) % 60);
+      const seconds = Math.floor((diffTime / 1000) % 60);
+
+      document.getElementById('days').innerText = String(days).padStart(3, '0');
+      document.getElementById('hours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
+      document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
+    }
+
+    setInterval(updateCounter, 1000);
+    updateCounter();
+
+    /* =========================================================
+       2. SLIDE DECK NAVIGATION LOGIC
+       ========================================================= */
+    const deck = document.getElementById('deck');
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const indicator = document.getElementById('indicator');
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    function goToSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+
+      currentIndex = index;
+      deck.scrollTo({
+        left: window.innerWidth * currentIndex,
+        behavior: 'smooth'
+      });
+
+      indicator.textContent = `${currentIndex + 1} / ${totalSlides}`;
+    }
+
+    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
+    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
+
+    // Keyboard Arrow Keys Navigation
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === 'Space') {
+        goToSlide(currentIndex + 1);
+      } else if (e.key === 'ArrowLeft') {
+        goToSlide(currentIndex - 1);
+      }
+    });
+
+    // Synchronize Counter on Manual Touch Swipe or Scroll
+    deck.addEventListener('scroll', () => {
+      const newIndex = Math.round(deck.scrollLeft / window.innerWidth);
+      if (newIndex !== currentIndex) {
+        currentIndex = newIndex;
+        indicator.textContent = `${currentIndex + 1} / ${totalSlides}`;
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      deck.scrollTo({
+        left: window.innerWidth * currentIndex,
+        behavior: 'auto'
+      });
+    });
+
+    /* =========================================================
+       3. FLOATING HEART PARTICLES CANVAS ANIMATION
+       ========================================================= */
+    const canvas = document.getElementById('particle-canvas');
+    const ctx = canvas.getContext('2d');
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    class Particle {
+      constructor() {
+        this.reset();
+      }
+
+      reset() {
+        this.x = Math.random() * width;
+        this.y = height + 20;
+        this.size = Math.random() * 14 + 8;
+        this.speedY = Math.random() * 1.5 + 0.5;
+        this.speedX = Math.sin(this.y) * 0.5;
+        this.opacity = Math.random() * 0.6 + 0.2;
+      }
+
+      update() {
+        this.y -= this.speedY;
+        this.x += Math.sin(this.y / 30) * 0.5;
+        if (this.y < -20) {
+          this.reset();
         }
+      }
 
-        function filterProducts() {
-            const query = document.getElementById('searchInput').value.toLowerCase().trim();
-            const activeTab = document.querySelector('.view-section.active');
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.fillStyle = `rgba(255, 42, 109, ${this.opacity})`;
+        ctx.beginPath();
+        // Heart shape path
+        const topCurveHeight = this.size * 0.3;
+        ctx.moveTo(0, topCurveHeight);
+        ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
+        ctx.bezierCurveTo(-this.size / 2, (this.size + topCurveHeight) / 2, 0, this.size, 0, this.size);
+        ctx.bezierCurveTo(0, this.size, this.size / 2, (this.size + topCurveHeight) / 2, this.size / 2, topCurveHeight);
+        ctx.bezierCurveTo(this.size / 2, 0, 0, 0, 0, topCurveHeight);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+      }
+    }
 
-            if (query !== '') {
-                if (activeTab.id === 'homeTab') {
-                    switchTab('womenTab', document.querySelectorAll('.nav-btn')[1]);
-                }
-            }
+    const particles = Array.from({ length: 30 }, () => new Particle());
 
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach(card => {
-                const title = card.getAttribute('data-name').toLowerCase();
-                if (title.includes(query)) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-        }
+    function animate() {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
+    }
 
-        let selectedProduct = { name: '', price: '' };
-
-        function openOrderPanel(itemName, itemPrice) {
-            selectedProduct.name = itemName;
-            selectedProduct.price = itemPrice;
-
-            document.getElementById('panelItemName').innerText = itemName;
-            document.getElementById('panelItemPrice').innerText = itemPrice;
-            document.getElementById('orderOverlay').style.display = 'flex';
-        }
-
-        function closeOrderPanel() {
-            document.getElementById('orderOverlay').style.display = 'none';
-        }
-
-        function sendWhatsAppOrder(event) {
-            event.preventDefault();
-
-            const customerPhone = document.getElementById('custNumber').value;
-            const location = document.getElementById('custLocation').value;
-            const specificPlace = document.getElementById('specificPlace').value;
-            const collectTime = document.getElementById('collectTime').value;
-            const targetPhone = document.getElementById('targetWhatsApp').value;
-
-            const message = `*NEW ORDER - ATELIER OLFACT*\n\n` +
-                `*Item Requested:* ${selectedProduct.name}\n` +
-                `*Price:* ${selectedProduct.price}\n` +
-                `------------------------------\n` +
-                `*Customer Phone:* ${customerPhone}\n` +
-                `*Location:* ${location}\n` +
-                `*Specific Place:* ${specificPlace}\n` +
-                `*Time to Collect:* ${collectTime}\n\n` +
-                `Please confirm my order.`;
-
-            const encodedMessage = encodeURIComponent(message);
-            window.open(`https://wa.me/${targetPhone}?text=${encodedMessage}`, '_blank');
-        }
-
-        window.onclick = function(event) {
-            const overlay = document.getElementById('orderOverlay');
-            if (event.target === overlay) {
-                closeOrderPanel();
-            }
-        }
-    </script>
+    animate();
+  </script>
 </body>
 </html>
