@@ -4,24 +4,18 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Happy Anniversary My Love ❤️</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   
-  <!-- Fonts & Icons -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Sacramento&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <style>
     :root {
-      --bg-dark: #070308;
-      --card-bg: rgba(22, 10, 24, 0.75);
-      --card-border: rgba(255, 60, 110, 0.25);
-      --accent-pink: #ff2a6d;
-      --accent-gold: #ffb703;
-      --glow-pink: rgba(255, 42, 109, 0.45);
-      --glow-gold: rgba(255, 183, 3, 0.35);
+      --bg-dark: #030814;
+      --card-bg: rgba(10, 20, 42, 0.82);
+      --card-border: rgba(0, 180, 216, 0.3);
+      --accent-pink: #00b4d8; /* Replaced pink with glowing electric cyan */
+      --accent-gold: #90e0ef; /* Replaced gold with ice blue accent */
+      --glow-pink: rgba(0, 180, 216, 0.45);
       --text-main: #f8fafc;
-      --text-sub: #cbd5e1;
+      --text-sub: #94a3b8;
     }
 
     * {
@@ -36,10 +30,9 @@
       color: var(--text-main);
       overflow: hidden;
       position: relative;
-      user-select: none;
     }
 
-    /* Ambient Pulsing Background Glow */
+    /* Ambient Pulsing Glow Background - Deep Blue Tones */
     body::before {
       content: '';
       position: fixed;
@@ -47,7 +40,7 @@
       left: -20%;
       width: 140vw;
       height: 140vh;
-      background: radial-gradient(circle at 50% 50%, rgba(255, 42, 109, 0.15), rgba(120, 0, 40, 0.08) 40%, transparent 70%);
+      background: radial-gradient(circle at 50% 50%, rgba(0, 180, 216, 0.18), rgba(3, 25, 60, 0.12) 40%, transparent 70%);
       z-index: 0;
       pointer-events: none;
       animation: ambientPulse 10s infinite alternate ease-in-out;
@@ -58,7 +51,7 @@
       100% { transform: scale(1.1) translate(-2%, 2%); opacity: 1; }
     }
 
-    /* Floating Particles Canvas Overlay */
+    /* Particle Canvas Overlay */
     #particle-canvas {
       position: fixed;
       top: 0;
@@ -69,7 +62,92 @@
       pointer-events: none;
     }
 
-    /* Horizontal Full-Screen Slide Deck Container */
+    /* Lock Screen Styles */
+    .lock-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(3, 8, 20, 0.94);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .lock-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 3rem 2rem;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px var(--glow-pink);
+    }
+
+    .lock-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: inline-block;
+      animation: pulseHeart 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseHeart {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    .pass-input {
+      width: 100%;
+      padding: 1rem;
+      margin: 1.5rem 0 1rem 0;
+      background: rgba(2, 10, 25, 0.7);
+      border: 1px solid var(--accent-pink);
+      border-radius: 12px;
+      color: #fff;
+      font-size: 1.2rem;
+      text-align: center;
+      letter-spacing: 4px;
+      outline: none;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+
+    .pass-input:focus {
+      box-shadow: 0 0 15px var(--accent-pink);
+    }
+
+    .unlock-btn {
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--accent-pink), #0077b6);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .unlock-btn:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 18px var(--accent-pink);
+    }
+
+    .error-msg {
+      color: #ff4d4d;
+      font-size: 0.85rem;
+      margin-top: 0.8rem;
+      display: none;
+    }
+
+    /* Deck and Slide Layouts */
     .deck-container {
       display: flex;
       width: 100vw;
@@ -87,7 +165,6 @@
       display: none;
     }
 
-    /* Individual Full-Screen Slide */
     .slide {
       flex: 0 0 100vw;
       width: 100vw;
@@ -96,16 +173,15 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 2rem 1.5rem 6.5rem 1.5rem;
+      padding: 2rem 1.5rem 6rem 1.5rem;
     }
 
-    /* Glassmorphism Card Container */
     .slide-card {
       background: var(--card-bg);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border: 1px solid var(--card-border);
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 35px var(--glow-pink);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--glow-pink);
       border-radius: 28px;
       padding: 2.5rem;
       max-width: 900px;
@@ -125,21 +201,16 @@
       border-radius: 10px;
     }
 
-    /* Typography */
-    .font-cinzel {
+    h1, h2, h3 {
       font-family: 'Cinzel', serif;
-    }
-    .font-script {
-      font-family: 'Sacramento', cursive;
+      letter-spacing: 1px;
     }
 
     .slide-title {
-      font-family: 'Cinzel', serif;
       font-size: 2.2rem;
-      font-weight: 700;
       color: var(--accent-pink);
-      text-shadow: 0 0 15px var(--glow-pink);
-      margin-bottom: 0.75rem;
+      text-shadow: 0 0 12px var(--glow-pink);
+      margin-bottom: 1rem;
       text-align: center;
     }
 
@@ -149,10 +220,9 @@
       text-align: center;
       line-height: 1.6;
       margin-bottom: 2rem;
-      font-weight: 300;
     }
 
-    /* Timer Styles */
+    /* Real-Time Counter Grid */
     .timer-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -161,20 +231,19 @@
     }
 
     .time-box {
-      background: rgba(0, 0, 0, 0.55);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 18px;
+      background: rgba(2, 10, 25, 0.6);
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      border-radius: 16px;
       padding: 1.2rem 0.5rem;
       text-align: center;
-      box-shadow: inset 0 0 20px rgba(255, 42, 109, 0.15);
+      box-shadow: inset 0 0 15px rgba(0, 180, 216, 0.15);
     }
 
     .time-num {
-      font-family: 'Cinzel', serif;
       font-size: 2.2rem;
       font-weight: 700;
       color: var(--accent-gold);
-      text-shadow: 0 0 12px var(--glow-gold);
+      text-shadow: 0 0 10px rgba(144, 224, 239, 0.5);
       display: block;
     }
 
@@ -185,29 +254,27 @@
       color: var(--text-sub);
       margin-top: 0.4rem;
       display: block;
-      font-weight: 600;
     }
 
-    /* Media Grid Cards (Google Drive Photos & Videos) */
+    /* Media Grid */
     .media-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
       gap: 1.5rem;
       margin-top: 1rem;
     }
 
     .media-card {
-      background: rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 20px;
+      background: rgba(2, 10, 25, 0.5);
+      border: 1px solid rgba(0, 180, 216, 0.2);
+      border-radius: 18px;
       overflow: hidden;
-      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.3s ease;
     }
 
     .media-card:hover {
       transform: translateY(-5px);
       border-color: var(--accent-pink);
-      box-shadow: 0 10px 25px var(--glow-pink);
     }
 
     .media-card img {
@@ -229,20 +296,19 @@
       font-size: 0.9rem;
       color: var(--text-sub);
       text-align: center;
-      font-weight: 500;
     }
 
-    /* 3D Flip Love Note Cards */
+    /* Interactive 3D Flip Cards */
     .flip-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
       margin-top: 1.5rem;
     }
 
     .flip-card {
       background-color: transparent;
-      height: 190px;
+      height: 180px;
       perspective: 1000px;
       cursor: pointer;
     }
@@ -266,40 +332,35 @@
       height: 100%;
       -webkit-backface-visibility: hidden;
       backface-visibility: hidden;
-      border-radius: 20px;
+      border-radius: 18px;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5rem;
+      padding: 1.2rem;
     }
 
     .flip-front {
-      background: linear-gradient(135deg, rgba(255, 42, 109, 0.22), rgba(20, 10, 30, 0.85));
+      background: linear-gradient(135deg, rgba(0, 180, 216, 0.2), rgba(3, 15, 38, 0.85));
       border: 1px solid var(--accent-pink);
       color: var(--text-main);
       font-weight: 600;
-      font-size: 1.05rem;
-      box-shadow: inset 0 0 15px rgba(255, 42, 109, 0.15);
+      font-size: 1.1rem;
     }
 
     .flip-back {
-      background: linear-gradient(135deg, rgba(255, 183, 3, 0.22), rgba(30, 10, 25, 0.92));
+      background: linear-gradient(135deg, rgba(144, 224, 239, 0.25), rgba(2, 20, 50, 0.95));
       border: 1px solid var(--accent-gold);
       color: var(--text-main);
       transform: rotateY(180deg);
-      font-size: 0.92rem;
-      line-height: 1.6;
-      box-shadow: inset 0 0 15px rgba(255, 183, 3, 0.15);
+      font-size: 0.95rem;
+      line-height: 1.5;
     }
 
-    /* Spotify Player Container */
     .music-container {
-      margin-top: 1.25rem;
-      border-radius: 18px;
+      margin-top: 1.2rem;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 0 15px rgba(255, 42, 109, 0.2);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
     /* Floating Navigation Controls */
@@ -311,24 +372,24 @@
       display: flex;
       align-items: center;
       gap: 1.5rem;
-      background: rgba(15, 5, 20, 0.88);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      background: rgba(5, 15, 35, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       padding: 0.8rem 1.8rem;
       border-radius: 9999px;
       border: 1px solid var(--card-border);
-      box-shadow: 0 10px 35px rgba(0,0,0,0.85), 0 0 20px var(--glow-pink);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px var(--glow-pink);
       z-index: 10;
     }
 
     .nav-btn {
-      background: linear-gradient(135deg, var(--accent-pink), #b0003a);
+      background: linear-gradient(135deg, var(--accent-pink), #0077b6);
       color: #fff;
       border: none;
       width: 42px;
       height: 42px;
       border-radius: 50%;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       font-weight: bold;
       cursor: pointer;
       display: flex;
@@ -339,53 +400,181 @@
 
     .nav-btn:hover {
       transform: scale(1.1);
-      box-shadow: 0 0 15px var(--accent-pink);
+      box-shadow: 0 0 12px var(--accent-pink);
     }
 
     .slide-counter {
       font-size: 0.95rem;
-      font-weight: 700;
+      font-weight: 600;
       color: var(--accent-gold);
-      letter-spacing: 1.5px;
+      letter-spacing: 1px;
     }
 
-    /* Responsive adjustments */
+    .audio-player-widget {
+      position: fixed;
+      top: 1.8rem;
+      right: 1.8rem;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(5, 15, 35, 0.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--card-border);
+      border-radius: 9999px;
+      padding: 0.5rem 1rem 0.5rem 0.6rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6), 0 0 15px var(--glow-pink);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .audio-player-widget:hover {
+      border-color: var(--accent-pink);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8), 0 0 20px var(--accent-pink);
+      transform: translateY(-2px);
+    }
+
+    .audio-btn {
+      background: linear-gradient(135deg, var(--accent-pink), #0077b6);
+      border: none;
+      color: #fff;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      outline: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 0 10px var(--glow-pink);
+    }
+
+    .audio-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 15px var(--accent-pink);
+    }
+
+    .audio-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .audio-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-main);
+      white-space: nowrap;
+      letter-spacing: 0.5px;
+    }
+
+    .audio-status {
+      font-size: 0.68rem;
+      color: var(--accent-gold);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* Equalizer Wave Visual Indicator - Blue Theme */
+    .equalizer {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+      width: 14px;
+    }
+
+    .equalizer-bar {
+      width: 3px;
+      background-color: var(--accent-pink);
+      border-radius: 2px;
+      height: 20%;
+      transition: height 0.2s ease;
+    }
+
+    .audio-player-widget.playing .equalizer-bar:nth-child(1) {
+      animation: eqBar 0.8s infinite ease-in-out alternate;
+    }
+    .audio-player-widget.playing .equalizer-bar:nth-child(2) {
+      animation: eqBar 0.8s infinite ease-in-out alternate 0.2s;
+    }
+    .audio-player-widget.playing .equalizer-bar:nth-child(3) {
+      animation: eqBar 0.8s infinite ease-in-out alternate 0.4s;
+    }
+
+    @keyframes eqBar {
+      0% { height: 20%; }
+      100% { height: 100%; }
+    }
+
     @media (max-width: 640px) {
-      .slide-card {
-        padding: 1.5rem;
+      .slide-card { padding: 1.5rem; }
+      .slide-title { font-size: 1.75rem; }
+      .timer-grid { grid-template-columns: repeat(2, 1fr); }
+      .media-grid { grid-template-columns: 1fr; }
+      .audio-player-widget {
+        top: 1rem;
+        right: 1rem;
+        padding: 0.4rem 0.8rem 0.4rem 0.5rem;
       }
-      .slide-title {
-        font-size: 1.75rem;
-      }
-      .timer-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-      .media-grid {
-        grid-template-columns: 1fr;
-      }
+      .audio-title { font-size: 0.75rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- Floating Heart Particles Canvas -->
   <canvas id="particle-canvas"></canvas>
+
+  <!-- Persistent Floating Background Audio Player Controls -->
+  <div class="audio-player-widget" id="audioWidget">
+    <button class="audio-btn" id="audioToggleBtn" onclick="toggleAudio()" title="Toggle Background Music">
+      <span id="audioIcon">▶</span>
+    </button>
+    <div class="audio-info">
+      <div class="audio-title"> Theme Song 🎵</div>
+      <div class="audio-status">
+        <span id="audioStatusText">Paused</span>
+        <div class="equalizer" id="equalizer">
+          <div class="equalizer-bar"></div>
+          <div class="equalizer-bar"></div>
+          <div class="equalizer-bar"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden Continuous HTML5 Audio Source -->
+  <audio id="bgAudio" loop preload="auto">
+    <!-- Romantic royalty-free background track fallback -->
+    <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-piano-112199.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <!-- Password Lock Screen Overlay -->
+  <div class="lock-screen" id="lockScreen">
+    <div class="lock-card">
+      <div class="lock-icon">🔒❤️</div>
+      <h2 style="color: var(--accent-pink); margin-bottom: 0.5rem;">Protected Space</h2>
+      <p style="color: var(--text-sub); font-size: 0.95rem;">Enter our special passcode to unlock your anniversary surprise.</p>
+      
+      <input type="password" id="passInput" class="pass-input" placeholder="••••••" maxlength="10">
+      <button class="unlock-btn" onclick="unlockSite()">Unlock Love 💕</button>
+      
+      <p class="error-msg" id="errorMsg">Incorrect passcode! Try our anniversary date (DDMMYY).</p>
+    </div>
+  </div>
 
   <div class="deck-container" id="deck">
 
-    <!-- SLIDE 1: Hero & Time Counter -->
-    <section class="slide" id="slide-1">
+    <!-- SLIDE 1: Hero & Live Counter -->
+    <section class="slide">
       <div class="slide-card">
-        <span style="display: block; text-align: center; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
-          <i class="fa-solid fa-sparkles"></i> Happy Anniversary My Love
-        </span>
-
         <h1 class="slide-title">To My Favorite Person ❤️</h1>
-        <p class="slide-subtitle">
-          Every second spent loving you brings us closer. Distance is just a test to see how far love can travel.
-        </p>
+        <p class="slide-subtitle">Happy Anniversary! Every single second since we started this journey has brought me closer to you.</p>
 
-        <!-- Dynamic Live Time Counter -->
+        <!-- Live Anniversary Counter -->
         <div class="timer-grid">
           <div class="time-box">
             <span class="time-num" id="days">000</span>
@@ -405,134 +594,99 @@
           </div>
         </div>
 
-        <p class="font-script" style="text-align: center; color: var(--accent-gold); font-size: 2rem; margin-top: 1rem;">
-          "Distance Means So Little When Someone Means So Much"
+        <p style="text-align: center; color: var(--accent-gold); font-size: 0.9rem; margin-top: 1rem;">
+          ✨ Swipe right or click next to continue our story ✨
         </p>
       </div>
     </section>
 
-    <!-- SLIDE 2: Long Distance Relationship Message -->
-    <section class="slide" id="slide-2">
+    <!-- SLIDE 2: Long Distance Heartfelt Message -->
+    <section class="slide">
       <div class="slide-card">
-        <span style="display: block; text-align: center; color: var(--accent-pink); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
-          Miles Apart, Heart To Heart
-        </span>
-        <h2 class="slide-title">Across Every Mile 🌍</h2>
+        <h2 class="slide-title">Distance Means Nothing</h2>
         <p class="slide-subtitle">
-          Being miles apart isn't easy, but having you in my life makes every single distance completely worth it.
+          Miles can separate where we sleep, but they can't change who has my heart.
         </p>
-        
-        <div style="background: rgba(0,0,0,0.4); padding: 1.8rem; border-radius: 20px; border-left: 4px solid var(--accent-pink); margin-top: 1rem; box-shadow: inset 0 0 15px rgba(255, 42, 109, 0.1);">
-          <p style="font-style: italic; color: var(--text-main); line-height: 1.85; font-size: 1.1rem; text-shadow: 0 1px 3px rgba(0,0,0,0.8);">
-            "Our love exists across screens, late-night calls, and waiting for the moment I finally get to hold you. People think distance weakens a bond, but with us, it only proved how unbreakable we are. No matter how many miles separate us right now, my heart belongs to you, and I am counting down until the day distance is finally zero."
+        <div style="background: rgba(0,0,0,0.3); padding: 1.5rem; border-radius: 16px; border-left: 4px solid var(--accent-pink);">
+          <p style="font-style: italic; color: var(--text-main); line-height: 1.8;">
+            " Happy anniversary, my love. 
+ I wish I could be there to hold you today, but even with all this distance, I’ve never felt closer to you. Thank you for loving me through calls, late nights, missed days, and all the “I wish you were here” moments. 
+ Loving you from far has not been easy, but it has been worth it. Every single day. I love you more now than when we started, and I can’t wait for all the anniversaries where distance is not part of the story anymore
+. Ndokuda❤️😘"
           </p>
         </div>
-
-        <p class="font-script" style="text-align: center; color: var(--accent-pink); font-size: 2.1rem; margin-top: 1.5rem;">
-          "You are worth every single mile."
-        </p>
       </div>
     </section>
 
-    <!-- SLIDE 3: Interactive Love Notes (Flip Cards) -->
-    <section class="slide" id="slide-3">
+    <!-- SLIDE 3: Interactive 3D Love Notes (Flip Cards) -->
+    <section class="slide">
       <div class="slide-card">
-        <span style="display: block; text-align: center; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
-          Tap To Reveal
-        </span>
-        <h2 class="slide-title">Why Long Distance Showed Me You're The One</h2>
-        <p class="slide-subtitle">Click or tap on any card to unlock a secret note from my heart.</p>
+        <h2 class="slide-title">Why Distance Can't Loving You</h2>
+        <p class="slide-subtitle">Tap each card to reveal a secret note from my heart.</p>
 
         <div class="flip-grid">
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-card-inner">
-              <div class="flip-front">
-                <i class="fa-solid fa-phone-volume mb-2" style="font-size: 1.5rem; color: var(--accent-pink);"></i>
-                <span>Our Late Night Calls</span>
-              </div>
-              <div class="flip-back">
-                Hearing your voice over the phone at the end of the day instantly calms my mind and brings me peace.
-              </div>
+              <div class="flip-front">📲 Late Night Calls</div>
+              <div class="flip-back">Hearing your voice at the end of a long, chaotic day instantly resets my mood. You are my safe space.</div>
             </div>
           </div>
 
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-card-inner">
-              <div class="flip-front">
-                <i class="fa-solid fa-plane-arrival mb-2" style="font-size: 1.5rem; color: var(--accent-gold);"></i>
-                <span>Counting Down The Days</span>
-              </div>
-              <div class="flip-back">
-                Every single day brings us one step closer to the day I get to see you and hold you close.
-              </div>
+              <div class="flip-front">⏳ The Countdown</div>
+              <div class="flip-back">Every single day brings us one day closer to the moment distance won't exist between us anymore.</div>
             </div>
           </div>
 
           <div class="flip-card" onclick="this.classList.toggle('flipped')">
             <div class="flip-card-inner">
-              <div class="flip-front">
-                <i class="fa-solid fa-heart-circle-check mb-2" style="font-size: 1.5rem; color: var(--accent-pink);"></i>
-                <span>Unshakable Trust</span>
-              </div>
-              <div class="flip-back">
-                The miles only showed us how deep, genuine, and strong our love really is. I'm yours forever.
-              </div>
+              <div class="flip-front">🔒 Unmatched Loyalty</div>
+              <div class="flip-back">No matter how many miles are between us, my mind, my energy, and my love belong entirely to you.</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 4: Google Drive Images & Videos Gallery -->
-    <section class="slide" id="slide-4">
+    <!-- SLIDE 4: Google Drive Media Gallery Grid -->
+    <section class="slide">
       <div class="slide-card">
-        <span style="display: block; text-align: center; color: var(--accent-pink); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
-          Shared Memories
-        </span>
-        <h2 class="slide-title">Moments & Clips</h2>
-        <p class="slide-subtitle">Photos and video clips loaded directly from Google Drive links.</p>
+        <h2 class="slide-title">Our Moments & Clips</h2>
+        <p class="slide-subtitle">Our favorite memories and videos.</p>
 
         <div class="media-grid">
-          
-          <!-- Google Drive Image 1 -->
-          <!-- Replace 1ABC123xyz_EXAMPLE_ID1 with your real Google Drive Photo File ID -->
+          <!-- Photo 1 -->
           <div class="media-card">
-            <img src="https://lh3.googleusercontent.com/d/1ABC123xyz_EXAMPLE_ID1" alt="Memory Photo 1" onerror="this.src='https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=600&auto=format&fit=crop'">
-            <div class="media-caption">Unforgettable Times ❤️</div>
+            <img src="https://lh3.googleusercontent.com/d/1whj6S3XeSccoGzAt7dQqz9fGQQpbVZpk" alt="Our Memory 1">
+            <div class="media-caption">Unforgettable Memory ❤️</div>
           </div>
 
-          <!-- Google Drive Image 2 -->
-          <!-- Replace 1ABC123xyz_EXAMPLE_ID2 with your real Google Drive Photo File ID -->
+          <!-- Photo 2 -->
           <div class="media-card">
-            <img src="https://lh3.googleusercontent.com/d/1ABC123xyz_EXAMPLE_ID2" alt="Memory Photo 2" onerror="this.src='https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=600&auto=format&fit=crop'">
-            <div class="media-caption">Just Us 💕</div>
+            <img src="https://lh3.googleusercontent.com/d/1S2Np9kRUsE3RHEJVVEer52t7dKLSgLJl" alt="Our Memory 2">
+            <div class="media-caption">Always Thinking Of You 💕</div>
           </div>
 
-          <!-- Google Drive Embedded Video -->
-          <!-- Replace YOUR_VIDEO_FILE_ID with your real Google Drive Video File ID -->
+          <!-- Video Memory -->
           <div class="media-card">
-            <iframe src="https://drive.google.com/file/d/YOUR_VIDEO_FILE_ID/preview" allow="autoplay"></iframe>
+            <iframe src="https://drive.google.com/file/d/1Kxo_VoLkqmLfX_jNnrlnAI4QsILp2Ipx/preview" allow="autoplay" allowfullscreen></iframe>
             <div class="media-caption">Video Memory 🎥</div>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- SLIDE 5: Afrobeats Spotify Playlist Section -->
-    <section class="slide" id="slide-5">
+    <!-- SLIDE 5: Romantic Afrobeats Playlist Section -->
+    <section class="slide">
       <div class="slide-card">
-        <span style="display: block; text-align: center; color: var(--accent-gold); text-transform: uppercase; letter-spacing: 3px; font-size: 0.75rem; font-weight: 700; margin-bottom: 0.5rem;">
-          Afro Romantic Vibes
-        </span>
-        <h2 class="slide-title">Our Soundtrack 🎵</h2>
-        <p class="slide-subtitle">Smooth Afrobeats set to make the mood romantic and unforgettable.</p>
+        <h2 class="slide-title">Our LDR Soundtrack 🎵</h2>
+        <p class="slide-subtitle">Romantic Afrobeats playing the vibe while you read this.</p>
 
         <div class="music-container">
-          <!-- Spotify Embed: Omah Lay - Understand -->
           <iframe 
             style="border-radius:12px" 
-            src="https://open.spotify.com/embed/track/23M3L03eE3RkWF39jW5E8d?utm_source=generator&theme=0" 
+            src="https://open.spotify.com/embed/track/23vEv896rP8CH7lbmJ4l8B?utm_source=generator&theme=0" 
             width="100%" 
             height="152" 
             frameBorder="0" 
@@ -543,10 +697,9 @@
         </div>
 
         <div class="music-container">
-          <!-- Spotify Embed: Rema - Calm Down -->
           <iframe 
             style="border-radius:12px" 
-            src="https://open.spotify.com/embed/track/0yL213StFu1v4R312iM3eU?utm_source=generator&theme=0" 
+            src="https://open.spotify.com/embed/track/1UooO4lFHhFaKX8Jgz9xNI?utm_source=generator&theme=0" 
             width="100%" 
             height="152" 
             frameBorder="0" 
@@ -560,18 +713,69 @@
 
   </div>
 
-  <!-- Floating Navigation Controls -->
   <div class="nav-panel">
-    <button class="nav-btn" id="prevBtn" title="Previous Slide"><i class="fa-solid fa-chevron-left"></i></button>
+    <button class="nav-btn" id="prevBtn" title="Previous Slide">&larr;</button>
     <span class="slide-counter" id="indicator">1 / 5</span>
-    <button class="nav-btn" id="nextBtn" title="Next Slide"><i class="fa-solid fa-chevron-right"></i></button>
+    <button class="nav-btn" id="nextBtn" title="Next Slide">&rarr;</button>
   </div>
 
   <script>
-    /* =========================================================
-       1. LIVE COUNTER SCRIPT (Customize start date below)
-       ========================================================= */
-    const startDate = new Date(2023, 0, 1, 0, 0, 0); 
+    const SECRET_PASSWORD = "250223";
+    const bgAudio = document.getElementById('bgAudio');
+    const audioWidget = document.getElementById('audioWidget');
+    const audioToggleBtn = document.getElementById('audioToggleBtn');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioStatusText = document.getElementById('audioStatusText');
+
+    function playAudio() {
+      bgAudio.play().then(() => {
+        audioIcon.textContent = '❚❚';
+        audioStatusText.textContent = 'Playing';
+        audioWidget.classList.add('playing');
+      }).catch((err) => {
+        console.log("Autoplay waiting for user interaction:", err);
+      });
+    }
+
+    function pauseAudio() {
+      bgAudio.pause();
+      audioIcon.textContent = '▶';
+      audioStatusText.textContent = 'Paused';
+      audioWidget.classList.remove('playing');
+    }
+
+    function toggleAudio() {
+      if (bgAudio.paused) {
+        playAudio();
+      } else {
+        pauseAudio();
+      }
+    }
+
+    function unlockSite() {
+      const input = document.getElementById('passInput').value;
+      const error = document.getElementById('errorMsg');
+      const lock = document.getElementById('lockScreen');
+
+      if (input === SECRET_PASSWORD) {
+        lock.style.opacity = '0';
+        setTimeout(() => {
+          lock.style.visibility = 'hidden';
+        }, 600);
+
+        // Attempt background music playback on site unlock
+        playAudio();
+      } else {
+        error.style.display = 'block';
+        document.getElementById('passInput').focus();
+      }
+    }
+
+    document.getElementById('passInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') unlockSite();
+    });
+
+    const startDate = new Date(2023, 1, 25, 0, 0, 0);
 
     function updateCounter() {
       const now = new Date();
@@ -591,9 +795,6 @@
     setInterval(updateCounter, 1000);
     updateCounter();
 
-    /* =========================================================
-       2. SLIDE DECK NAVIGATION LOGIC
-       ========================================================= */
     const deck = document.getElementById('deck');
     const slides = document.querySelectorAll('.slide');
     const prevBtn = document.getElementById('prevBtn');
@@ -619,7 +820,6 @@
     nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
     prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
 
-    // Keyboard Arrow Keys Navigation
     window.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === 'Space') {
         goToSlide(currentIndex + 1);
@@ -628,7 +828,6 @@
       }
     });
 
-    // Synchronize Counter on Manual Touch Swipe or Scroll
     deck.addEventListener('scroll', () => {
       const newIndex = Math.round(deck.scrollLeft / window.innerWidth);
       if (newIndex !== currentIndex) {
@@ -644,9 +843,6 @@
       });
     });
 
-    /* =========================================================
-       3. FLOATING HEART PARTICLES CANVAS ANIMATION
-       ========================================================= */
     const canvas = document.getElementById('particle-canvas');
     const ctx = canvas.getContext('2d');
 
@@ -669,7 +865,7 @@
         this.size = Math.random() * 14 + 8;
         this.speedY = Math.random() * 1.5 + 0.5;
         this.speedX = Math.sin(this.y) * 0.5;
-        this.opacity = Math.random() * 0.6 + 0.2;
+        this.opacity = Math.random() * 0.6 + 0.25;
       }
 
       update() {
@@ -683,9 +879,8 @@
       draw() {
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.fillStyle = `rgba(255, 42, 109, ${this.opacity})`;
+        ctx.fillStyle = `rgba(0, 180, 216, ${this.opacity})`;
         ctx.beginPath();
-        // Heart shape path
         const topCurveHeight = this.size * 0.3;
         ctx.moveTo(0, topCurveHeight);
         ctx.bezierCurveTo(0, 0, -this.size / 2, 0, -this.size / 2, topCurveHeight);
@@ -698,7 +893,7 @@
       }
     }
 
-    const particles = Array.from({ length: 30 }, () => new Particle());
+    const particles = Array.from({ length: 32 }, () => new Particle());
 
     function animate() {
       ctx.clearRect(0, 0, width, height);
@@ -709,7 +904,9 @@
       requestAnimationFrame(animate);
     }
 
-    animate();
+    window.onload = function() {
+      animate();
+    };
   </script>
 </body>
 </html>
